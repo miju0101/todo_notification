@@ -16,7 +16,7 @@ ThemeData theme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: secondColor,
+        backgroundColor: blackColor,
         elevation: 0,
       ),
     ),

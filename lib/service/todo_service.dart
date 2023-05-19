@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TodoService {
+class TodoService with ChangeNotifier {
+  List<Todo> list = [];
+
   static Future<Database> connectionDB() async {
     return openDatabase(
       'todo.db',
@@ -27,15 +30,14 @@ class TodoService {
       map,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    read();
   }
 
-  Future<List<Todo>> read() async {
+  void read() async {
     var db = await TodoService.connectionDB();
-
     List<Map<String, dynamic>> temp =
         await db.query("todos", orderBy: 'checkDate');
-
-    return temp
+    list = temp
         .map(
           (e) => Todo(
             id: e["id"],
@@ -45,12 +47,8 @@ class TodoService {
           ),
         )
         .toList();
+    notifyListeners();
   }
-
-  // readInToday() async{
-  //   var db = await TodoService.connectionDB();
-  //   db.query("todos", where: "")
-  // }
 
   void update(int id, Todo todo) async {
     var db = await TodoService.connectionDB();
@@ -61,11 +59,14 @@ class TodoService {
       where: "id = ?",
       whereArgs: [id],
     );
+
+    read();
   }
 
   void delete(int id) async {
     var db = await TodoService.connectionDB();
     await db.delete('todos', where: "id = ?", whereArgs: [id]);
+    read();
   }
 }
 

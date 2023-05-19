@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/screen/home_screen.dart';
+import 'package:todo/service/todo_service.dart';
 import 'package:todo/theme.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    ChangeNotifierProvider(
+      create: (context) => TodoService(),
+      child: const MyApp(),
+    ),
   );
 }
 
