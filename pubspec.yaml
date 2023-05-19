@@ -63,9 +63,10 @@ flutter:
     - assets/fonts/
 
   fonts:
-    - family: omu
+    - family: dove
       fonts:
-        - asset: assets/fonts/오뮤_다예쁨체.ttf
+        - asset: assets/fonts/Dovemayo_gothic.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -3,8 +3,7 @@ import 'package:todo/colors.dart';
 
 ThemeData theme() {
   return ThemeData(
-    backgroundColor: Colors.white,
-    fontFamily: 'omu',
+    fontFamily: 'dove',
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,

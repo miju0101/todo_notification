@@ -116,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
           TextButton(
             onPressed: () {
               if (todo == null) {
-                //추가
                 String content = content_controller.text;
 
                 if (content.isEmpty) {
@@ -167,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -196,70 +195,171 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              if (todoService.list.length > 0)
-                SizedBox(
-                  height: 10,
+              const SizedBox(
+                height: 10,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "오늘",
+                  style: TextStyle(fontSize: 15),
                 ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: todoService.list.length,
-                  itemBuilder: (context, index) {
-                    Todo current_todo = todoService.list[index];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                current_todo.content,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+              ),
+              todoService.today_list.length > 0
+                  ? Flexible(
+                      child: ListView.builder(
+                        itemCount: todoService.today_list.length,
+                        itemBuilder: (context, index) {
+                          Todo current_todo = todoService.today_list[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
                               ),
-                              if (current_todo.isAlarm)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.alarm,
-                                        size: 15,
+                            ),
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      current_todo.content,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    if (current_todo.isAlarm)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.access_time_filled,
+                                              size: 15,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              DateFormat("a hh:mm").format(
+                                                  current_todo.checkDate),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        DateFormat("a hh:mm")
-                                            .format(current_todo.checkDate),
-                                      )
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                            ],
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () =>
-                                createAndUpdate(todo: current_todo),
-                            icon: const Icon(Icons.edit, color: Colors.white),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              todoService.delete(current_todo.id!);
-                            },
-                            icon: const Icon(Icons.delete, color: Colors.white),
-                          )
-                        ],
+                                const Spacer(),
+                                IconButton(
+                                  onPressed: () =>
+                                      createAndUpdate(todo: current_todo),
+                                  icon: const Icon(Icons.edit,
+                                      color: Colors.white),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    todoService.delete(current_todo.id!);
+                                  },
+                                  icon: const Icon(Icons.delete,
+                                      color: Colors.white),
+                                )
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    )
+                  : const Center(
+                      child: Text("오늘 일정이 없습니다."),
+                    ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "내일",
+                  style: TextStyle(fontSize: 15),
                 ),
-              )
+              ),
+              todoService.tomorrow_list.length > 0
+                  ? Flexible(
+                      child: ListView.builder(
+                        itemCount: todoService.tomorrow_list.length,
+                        itemBuilder: (context, index) {
+                          Todo current_todo = todoService.tomorrow_list[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      current_todo.content,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    if (current_todo.isAlarm)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.access_time_filled,
+                                              size: 15,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              DateFormat("a hh:mm").format(
+                                                  current_todo.checkDate),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                IconButton(
+                                  onPressed: () =>
+                                      createAndUpdate(todo: current_todo),
+                                  icon: const Icon(Icons.edit,
+                                      color: Colors.white),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    todoService.delete(current_todo.id!);
+                                  },
+                                  icon: const Icon(Icons.delete,
+                                      color: Colors.white),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : const Center(
+                      child: Text("내일 일정이 없습니다."),
+                    ),
             ],
           ),
         ),

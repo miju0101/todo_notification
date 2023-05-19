@@ -3,6 +3,8 @@ import 'package:sqflite/sqflite.dart';
 
 class TodoService with ChangeNotifier {
   List<Todo> list = [];
+  List<Todo> today_list = [];
+  List<Todo> tomorrow_list = [];
 
   static Future<Database> connectionDB() async {
     return openDatabase(
@@ -48,6 +50,26 @@ class TodoService with ChangeNotifier {
         )
         .toList();
     notifyListeners();
+    readToday();
+    readTomorow();
+  }
+
+  void readToday() {
+    today_list = list.where((todo) {
+      DateTime now = DateTime.now();
+      return todo.checkDate.year == now.year &&
+          todo.checkDate.month == now.month &&
+          todo.checkDate.day == now.day;
+    }).toList();
+  }
+
+  void readTomorow() {
+    tomorrow_list = list.where((todo) {
+      DateTime now = DateTime.now().add(const Duration(days: 1));
+      return todo.checkDate.year == now.year &&
+          todo.checkDate.month == now.month &&
+          todo.checkDate.day == now.day;
+    }).toList();
   }
 
   void update(int id, Todo todo) async {
