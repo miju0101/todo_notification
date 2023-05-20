@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               todoService.today_list.length > 0
-                  ? Flexible(
+                  ? Expanded(
                       child: ListView.builder(
                         itemCount: todoService.today_list.length,
                         itemBuilder: (context, index) {
@@ -225,11 +225,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      current_todo.content,
-                                      style: const TextStyle(
+                                    Container(
+                                      width: 250,
+                                      child: Text(
+                                        current_todo.content,
+                                        style: const TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w500,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
                                     ),
                                     if (current_todo.isAlarm)
                                       Padding(
@@ -276,8 +281,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     )
-                  : const Center(
-                      child: Text("오늘 일정이 없습니다."),
+                  : const Expanded(
+                      child: Center(
+                        child: Text("오늘 일정이 없습니다."),
+                      ),
                     ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -306,11 +313,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      current_todo.content,
-                                      style: const TextStyle(
+                                    Container(
+                                      width: 250,
+                                      child: Text(
+                                        current_todo.content,
+                                        style: const TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w500,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
                                     ),
                                     if (current_todo.isAlarm)
                                       Padding(
@@ -357,8 +369,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     )
-                  : const Center(
-                      child: Text("내일 일정이 없습니다."),
+                  : const Expanded(
+                      child: Center(
+                        child: Text("내일 일정이 없습니다."),
+                      ),
                     ),
             ],
           ),

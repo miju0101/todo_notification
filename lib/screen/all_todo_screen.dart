@@ -209,9 +209,15 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    todo.content,
-                                    style: const TextStyle(fontSize: 18),
+                                  Container(
+                                    width: 250,
+                                    child: Text(
+                                      todo.content,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
                                   ),
                                   if (todo.isAlarm)
                                     Padding(
