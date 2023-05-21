@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                   },
                   child: Text(
-                    "${time.hour} : ${time.minute}",
+                    time.format(context),
                   ),
                 ),
                 visible: isCheck,
@@ -139,7 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 var myTodo = Todo(
                   content: content,
                   isAlarm: isCheck,
-                  checkDate: date,
+                  checkDate: DateTime(
+                      date.year, date.month, date.day, time.hour, time.minute),
                 );
 
                 context.read<TodoService>().update(todo.id!, myTodo);

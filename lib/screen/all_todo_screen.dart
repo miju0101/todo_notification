@@ -94,7 +94,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                     }
                   },
                   child: Text(
-                    "${time.hour} : ${time.minute}",
+                    time.format(context),
                   ),
                 ),
                 visible: isCheck,
@@ -107,16 +107,16 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
             onPressed: () {
               String content = content_controller.text;
 
-              if (content.isEmpty) {
-                return;
-              }
-              var myTodo = Todo(
-                content: content,
-                isAlarm: isCheck,
-                checkDate: date,
-              );
+              if (content.isNotEmpty) {
+                var myTodo = Todo(
+                  content: content,
+                  isAlarm: isCheck,
+                  checkDate: DateTime(
+                      date.year, date.month, date.day, time.hour, time.minute),
+                );
 
-              context.read<TodoService>().update(todo.id!, myTodo);
+                context.read<TodoService>().update(todo.id!, myTodo);
+              }
 
               Navigator.pop(context);
             },
