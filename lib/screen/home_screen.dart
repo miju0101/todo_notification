@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       if (selectedDate != null) {
                         setState(() {
-                          date = selectedDate!;
+                          date = selectedDate;
                         });
                       }
                     },
@@ -94,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () async {
                     TimeOfDay? selectedTime = await showTimePicker(
                       context: context,
-                      initialTime: TimeOfDay.now(),
+                      initialTime: todo == null
+                          ? TimeOfDay.now()
+                          : TimeOfDay.fromDateTime(todo.checkDate),
                     );
 
                     if (selectedTime != null) {
@@ -227,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 250,
+                                      width: 230,
                                       child: Text(
                                         current_todo.content,
                                         style: const TextStyle(
@@ -315,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 250,
+                                      width: 230,
                                       child: Text(
                                         current_todo.content,
                                         style: const TextStyle(

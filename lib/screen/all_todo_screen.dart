@@ -57,7 +57,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
 
                       if (selectedDate != null) {
                         setState(() {
-                          date = selectedDate!;
+                          date = selectedDate;
                         });
                       }
                     },
@@ -84,7 +84,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                   onPressed: () async {
                     TimeOfDay? selectedTime = await showTimePicker(
                       context: context,
-                      initialTime: TimeOfDay.now(),
+                      initialTime: TimeOfDay.fromDateTime(todo.checkDate),
                     );
 
                     if (selectedTime != null) {
@@ -210,7 +210,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width: 250,
+                                    width: 230,
                                     child: Text(
                                       todo.content,
                                       style: const TextStyle(

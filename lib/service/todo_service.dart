@@ -17,7 +17,7 @@ class TodoService with ChangeNotifier {
   }
 
   void initializeNotification() async {
-    final androidSetting = AndroidInitializationSettings("@mipmap/ic_launcher");
+    final androidSetting = AndroidInitializationSettings("ic_launcher");
 
     var initializeSettings = InitializationSettings(android: androidSetting);
 
@@ -59,10 +59,12 @@ class TodoService with ChangeNotifier {
 
   void createNotification(int id, Todo todo) {
     const androidDetails = AndroidNotificationDetails(
-        'channelId', 'channelName',
-        channelDescription: 'Channel desc',
-        priority: Priority.high,
-        importance: Importance.max);
+      'channelId',
+      'channelName',
+      channelDescription: 'Channel desc',
+      priority: Priority.high,
+      importance: Importance.max,
+    );
 
     const details = NotificationDetails(android: androidDetails);
 
