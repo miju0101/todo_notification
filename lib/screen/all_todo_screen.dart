@@ -28,6 +28,8 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
     time = TimeOfDay.fromDateTime(date);
     content_controller.text = todo.content;
 
+    Navigator.pop(context);
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -49,11 +51,11 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                   TextButton(
                     onPressed: () async {
                       DateTime? selectedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2010),
-                        lastDate: DateTime(2030),
-                      );
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2010),
+                          lastDate: DateTime(2030),
+                          locale: Locale(''));
 
                       if (selectedDate != null) {
                         setState(() {
@@ -114,7 +116,6 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                   checkDate: DateTime(
                       date.year, date.month, date.day, time.hour, time.minute),
                 );
-
                 context.read<TodoService>().update(todo.id!, myTodo);
               }
 
@@ -231,7 +232,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
                                           ),
                                           const SizedBox(width: 5),
                                           Text(
-                                            DateFormat("a hh:mm")
+                                            DateFormat("a hh:mm", "ko")
                                                 .format(todo.checkDate),
                                             style: const TextStyle(
                                               color: Colors.grey,
@@ -287,7 +288,7 @@ class _AllTodoScreenState extends State<AllTodoScreen> {
               ),
             )
           : const Center(
-              child: Text("데이터가 존재 하지 않습니다"),
+              child: Text("일정이 없습니다."),
             ),
     );
   }

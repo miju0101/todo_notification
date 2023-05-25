@@ -253,8 +253,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 5,
                                             ),
                                             Text(
-                                              DateFormat("a hh:mm").format(
-                                                  current_todo.checkDate),
+                                              DateFormat("a hh:mm", "ko")
+                                                  .format(
+                                                      current_todo.checkDate),
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               ),
